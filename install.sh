@@ -22,15 +22,8 @@ if ! curl --fail --location --silent --show-error --retry 3 \
     --output "$download_dir/mute-on-lock" "$release_base/mute-on-lock" || \
    ! curl --fail --location --silent --show-error --retry 3 \
     --output "$download_dir/mute-on-lock.sha256" "$release_base/mute-on-lock.sha256"; then
-    rm -f "$download_dir/mute-on-lock" "$download_dir/mute-on-lock.sha256"
-    if command -v gh >/dev/null 2>&1; then
-        echo "Direct download unavailable; trying authenticated GitHub access…"
-        gh release download "$release_version" --repo "$release_repository" \
-            --pattern mute-on-lock --pattern mute-on-lock.sha256 --dir "$download_dir"
-    else
-        echo "Download failed. Private repository access requires the GitHub CLI (gh)." >&2
-        exit 1
-    fi
+    echo "Download failed. Check your connection and the release URL." >&2
+    exit 1
 fi
 
 expected_checksum="$(awk 'NR == 1 { print $1 }' "$download_dir/mute-on-lock.sha256")"

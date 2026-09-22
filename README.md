@@ -19,10 +19,6 @@ release and verifies its SHA-256 checksum before installing it. No administrator
 password or macOS permissions are required. The service starts immediately and
 automatically after future logins.
 
-The repository is currently private, so installation also requires an
-authenticated [GitHub CLI](https://cli.github.com/) session. That requirement
-goes away if the repository is made public.
-
 ### Set the idle timeout
 
 Replace `15` with any value from 0.1 minutes through 7 days:
@@ -103,5 +99,5 @@ bash scripts/build-release.sh
 ```
 
 Release binaries are not notarized by Apple. The installer downloads them with
-`curl` or the GitHub CLI and verifies the checksum before execution. Browser
-downloads may still trigger Gatekeeper’s unidentified-developer warning.
+`curl` and verifies the checksum before execution. Browser downloads may still
+trigger Gatekeeper’s unidentified-developer warning.

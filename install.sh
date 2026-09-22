@@ -6,13 +6,18 @@ readonly label="local.mute-on-lock"
 readonly destination="$HOME/Library/Application Support/Mute on lock"
 readonly agent="$HOME/Library/LaunchAgents/$label.plist"
 readonly release_repository="dared66/mute-on-lock"
-readonly release_version="v1.1.0"
+readonly release_version="v1.1.1"
 readonly release_base="https://github.com/$release_repository/releases/download/$release_version"
+
+if [ "$(uname -m)" != "arm64" ]; then
+    echo "Mute on Lock requires an Apple silicon Mac." >&2
+    exit 1
+fi
 
 download_dir="$(mktemp -d)"
 trap 'rm -rf "$download_dir"' EXIT
 
-echo "Downloading Mute on Lock $release_version…"
+echo "Downloading Mute on Lock ${release_version}…"
 if ! curl --fail --location --silent --show-error --retry 3 \
     --output "$download_dir/mute-on-lock" "$release_base/mute-on-lock" || \
    ! curl --fail --location --silent --show-error --retry 3 \

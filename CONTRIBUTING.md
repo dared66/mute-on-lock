@@ -7,7 +7,9 @@ Thank you for helping improve Mute on Lock.
 2. Keep changes focused and avoid adding dependencies unless they clearly improve
    reliability or safety.
 3. Build and test with `bash tests/test.sh`.
-4. Explain the user-visible behavior and validation in the pull request.
+4. For release changes, build both architectures with
+   `bash scripts/build-release.sh` and upload the two files in `dist/`.
+5. Explain the user-visible behavior and validation in the pull request.
 
 By contributing, you agree that your contribution is licensed under the MIT
 License included in this repository.

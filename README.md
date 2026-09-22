@@ -5,7 +5,7 @@ leave your Mac idle. The default idle timeout is 15 minutes.
 
 ## Install
 
-Requires macOS and Apple’s free Xcode Command Line Tools.
+Requires macOS 13 or later. Xcode and the Command Line Tools are **not** required.
 
 ```sh
 git clone https://github.com/dared66/mute-on-lock.git
@@ -13,9 +13,14 @@ cd mute-on-lock
 bash install.sh
 ```
 
-If the compiler is missing, run `xcode-select --install` once, then repeat the
-install command. No administrator password or macOS permissions are required.
-The service starts immediately and automatically after future logins.
+The installer downloads the universal Apple silicon/Intel binary from the
+corresponding GitHub release and verifies its SHA-256 checksum before installing
+it. No administrator password or macOS permissions are required. The service
+starts immediately and automatically after future logins.
+
+The repository is currently private, so installation also requires an
+authenticated [GitHub CLI](https://cli.github.com/) session. That requirement
+goes away if the repository is made public.
 
 ### Set the idle timeout
 
@@ -87,3 +92,15 @@ lock/config.json` and `~/Library/Logs/Mute on lock`.
 Bug reports and focused pull requests are welcome. See
 [CONTRIBUTING.md](CONTRIBUTING.md). Mute on Lock is available under the
 [MIT License](LICENSE).
+
+### Build a release binary
+
+Contributors with Xcode can produce the universal, ad-hoc-signed release assets:
+
+```sh
+bash scripts/build-release.sh
+```
+
+Release binaries are not notarized by Apple. The installer downloads them with
+`curl` or the GitHub CLI and verifies the checksum before execution. Browser
+downloads may still trigger Gatekeeper’s unidentified-developer warning.
